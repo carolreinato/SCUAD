@@ -3,6 +3,24 @@
 @{
     ViewBag.Title = "Cargos";
 }
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Portal Cargos", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Cargos", "Index", "Cargo")</li>
+                <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <h2>Cargos</h2>
 
@@ -20,30 +38,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeCargo)
-        </td>
-            @if(item.StatusAtivo == true)
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCargo)
+            </td>
+            @if (item.StatusAtivo == true)
             {
                 <td>Ativo</td>
             }
             else
             {
-                <td>Inativo</td>
+                <td class="inativo">Inativo</td>
             }
-    <td>
-        @if (item.StatusAtivo == true)
-        {
-            @Html.ActionLink("Desativar", "Desativar", new { id = item.Id })
-        }
-        else
-        {
-            @Html.ActionLink("Ativar", "Ativar", new { id = item.Id })
-        }
-    </td>
-    </tr>
-}
+            <td>
+                @if (item.StatusAtivo == true)
+                {
+                    @Html.ActionLink("Desativar", "Desativar", new { id = item.Id })
+                }
+                else
+                {
+                    @Html.ActionLink("Ativar", "Ativar", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

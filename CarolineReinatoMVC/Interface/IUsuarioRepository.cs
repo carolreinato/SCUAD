@@ -15,5 +15,6 @@ namespace CarolineReinatoMVC.Interface
         void Select(int id);
         void Desativar(int id);
         void Ativar(int id);
+        bool LoginValidacao(string nome);
     }
 }

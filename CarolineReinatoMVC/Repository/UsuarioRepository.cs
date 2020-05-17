@@ -36,7 +36,7 @@ namespace CarolineReinatoMVC.Repository
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<Usuario>("Select u.IdCargo, u.Nome, u.StatusAtivo, c.NomeCargo From Usuario u inner join Cargo c on u.IdCargo = c.Id").ToList();
+                return db.Query<Usuario>("Select u.Id, u.IdCargo, u.Nome, u.StatusAtivo, c.NomeCargo From Usuario u inner join Cargo c on u.IdCargo = c.Id").ToList();
             }
         }
 
@@ -60,8 +60,20 @@ namespace CarolineReinatoMVC.Repository
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<Cargo>("Select * From Cargo").ToList();
+                return db.Query<Cargo>("Select * From Cargo where StatusAtivo = 1").ToList();
             }
+        }
+
+        public bool LoginValidacao(string nome)
+        {
+            int result = 0;
+
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                result = db.Query<int>($"Select Count(Nome) From Usuario Where Nome = '{nome}' and StatusAtivo = 1").SingleOrDefault();
+            }
+
+            return result == 0 ? false : true;
         }
     }
 }

@@ -34,12 +34,12 @@ namespace CarolineReinatoMVC.Controllers
             _cargoRepository.Insert(cargo);
             return RedirectToAction("Index");
         }
-        public ActionResult Desativar(int id, FormCollection collection)
+        public ActionResult Desativar(int id)
         {
             _cargoRepository.Desativar(id);
             return RedirectToAction("Index");
         }
-        public ActionResult Ativar(int id, FormCollection collection)
+        public ActionResult Ativar(int id)
         {
             _cargoRepository.Ativar(id);
             return RedirectToAction("Index");

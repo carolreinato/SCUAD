@@ -17,12 +17,32 @@ namespace CarolineReinatoMVC.Controllers
         {
             this._usuarioRepository = new UsuarioRepository();
         }
-        
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string nome)
+        {
+            var isUsuarioValido = _usuarioRepository.LoginValidacao(nome);
+
+            return isUsuarioValido ? RedirectToAction("Index", "Home") : RedirectToAction("Error");
+            
+        }
+        public ActionResult Error()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             var usuarios = _usuarioRepository.GetUsuarios();
             return View(usuarios);
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -30,18 +50,21 @@ namespace CarolineReinatoMVC.Controllers
             ViewData["IdCargo"] = new SelectList(dropDownCargos, "Id", "NomeCargo");
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(Usuario usuario)
         {
             _usuarioRepository.Insert(usuario);
             return RedirectToAction("Index");
         }
-        public ActionResult Desativar(int id, FormCollection collection)
+
+        public ActionResult Desativar(int id)
         {
             _usuarioRepository.Desativar(id);
             return RedirectToAction("Index");
         }
-        public ActionResult Ativar(int id, FormCollection collection)
+
+        public ActionResult Ativar(int id)
         {
             _usuarioRepository.Ativar(id);
             return RedirectToAction("Index");
