@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CarolineReinatoMVC.Models.Usuario>
+
+@{
+    ViewBag.Title = "Usuários";
+}
+
+<h2>Usuários</h2>
+
+<p>
+    @Html.ActionLink("Criar novo usuário", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Cargo
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCargo)
+            </td>
+            @if (item.StatusAtivo == true)
+            {
+                <td>Ativo</td>
+            }
+            else
+            {
+                <td>Inativo</td>
+            }
+        <td>
+            @if (item.StatusAtivo == true)
+            {
+                @Html.ActionLink("Desativar", "Desativar", new { id = item.Id })
+            }
+            else
+            {
+                @Html.ActionLink("Ativar", "Ativar", new { id = item.Id })
+            }
+        </td>
+        </tr>
+    }
+
+</table>
